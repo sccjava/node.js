@@ -22,7 +22,7 @@ if (process.argv.length < 4) {
 const jenkinsWorkspace = process.argv[2];
 const maxArtifactsNum = process.argv[3];
 
-console.log('%s, maxArtifactsNu m= %d', jenkinsWorkspace, maxArtifactsNum);
+console.log('%s, maxArtifactsNum = %d', jenkinsWorkspace, maxArtifactsNum);
 
 if (maxArtifactsNum < 1) {
     console.error("maxArtifactsNum should >= 1");
@@ -56,7 +56,11 @@ function readArtifacts(artifactsPath) {
             fileMap.set(filePath, stat.birthtime.toLocaleString('zh-cn', {hour12: false}));
         }
     });
-    cleanArtifacts(fileMap);
+    if(fileMap.size > maxArtifactsNum) {
+        cleanArtifacts(fileMap);
+    }else{
+        console.log('nothing to delete under ' + artifactsPath);
+    }
 }
 
 function cleanArtifacts(fileMap) {
@@ -69,7 +73,7 @@ function cleanArtifacts(fileMap) {
         for (var [key, value] of fileMap) {
             if (i < delCnt) {
                 console.log('deleted %s', key);
-                // fs.unlinkSync(key);
+                fs.unlinkSync(key);
             } else {
                 break;
             }
