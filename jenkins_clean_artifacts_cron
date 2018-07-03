@@ -1,0 +1,2 @@
+# execute clean artifacts script at 17:00
+0 17 * * * /Users/Shared/Jenkins/node.js/jenkins_clean_artifacts.sh
