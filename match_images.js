@@ -88,8 +88,3 @@ function findFile(startPath, filter, callback) {
     }
 };
 
-// Milliseconds
-function sleep_ms(millisecs) {
-    var initiation = new Date().getTime();
-    while ((new Date().getTime() - initiation) < millisecs) ;
-}

@@ -37,16 +37,20 @@ function renameFile2(path) {
                 if (filenameMap.get(items[i])) {
                     var newFile = path + '/' + filenameMap.get(items[i]);
                     console.log(oldPath + " -----rename-------> " + newFile);
-                    fs.renameSync(oldPath, newFile);
+                    //fs.renameSync(oldPath, newFile);
                     continue;
                 }
 
                 let reg = /([A-Z]*)/g;
                 let match = items[i].match(reg);
                 if (match && match[0]) {
-                    var newFile = path + '/' + items[i].replace(match[0], '_' + match[0].toLowerCase());
+                    var tmp = items[i].replace(match[0], '_' + match[0].toLowerCase());
+                    if (tmp.charAt(0) === '_'){
+                        tmp = tmp.substr(1);
+                    }
+                    var newFile = path + '/' + tmp;
                     console.log(oldPath + " ------------> " + newFile);
-                    fs.renameSync(oldPath, newFile);
+                    //fs.renameSync(oldPath, newFile);
                 }
             }
         }
